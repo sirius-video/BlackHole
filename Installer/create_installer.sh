@@ -4,12 +4,14 @@
 
 # create installer for different channel versions
 
-for channels in 2 16 64 128 256
+for driver_name in "SiriusA" "SiriusB" #16 #64 128 256
 do
-
+channels=2
 ch=$channels"ch"
 version=v$(head -n 1 VERSION)
-bundleID="audio.existential.BlackHole$ch"
+bundleID="audio.existential.BlackHole."$driver_name
+
+output_package_name=$driver_name
 
 # Build
 xcodebuild \
@@ -17,20 +19,20 @@ xcodebuild \
 -configuration Release \
 -target BlackHole CONFIGURATION_BUILD_DIR=build \
 PRODUCT_BUNDLE_IDENTIFIER=$bundleID \
-GCC_PREPROCESSOR_DEFINITIONS='$GCC_PREPROCESSOR_DEFINITIONS kNumber_Of_Channels='$channels' kPlugIn_BundleID=\"'$bundleID'\"'
+GCC_PREPROCESSOR_DEFINITIONS='$GCC_PREPROCESSOR_DEFINITIONS kDriver_Name=\"'$driver_name'\" kNumber_Of_Channels='$channels' kPlugIn_BundleID=\"'$bundleID'\"'
 
-mkdir installer/root
-mv build/BlackHole.driver installer/root/BlackHole$ch.driver
+mkdir Installer/root
+mv build/BlackHole.driver Installer/root/BlackHole_$driver_name.driver
 rm -r build
 
 # Sign
-codesign --force --deep --options runtime --sign Q5C99V536K Installer/root/BlackHole$ch.driver
+codesign --force --deep --options runtime --sign 924D2BA9B9CC4F2965E32FFA2AC6DC69A88962358 Installer/root/BlackHole_$driver_name.driver
 
 # Create package with pkgbuild
 chmod 755 Installer/Scripts/preinstall
 chmod 755 Installer/Scripts/postinstall
 
-pkgbuild --sign "Q5C99V536K" --root Installer/root --scripts Installer/Scripts --install-location /Library/Audio/Plug-Ins/HAL Installer/BlackHole.pkg
+pkgbuild --sign "24D2BA9B9CC4F2965E32FFA2AC6DC69A88962358" --root Installer/root --scripts Installer/Scripts --install-location /Library/Audio/Plug-Ins/HAL Installer/BlackHole_$driver_name.pkg
 rm -r Installer/root
 
 # Create installer with productbuild
@@ -51,23 +53,25 @@ echo "<?xml version=\"1.0\" encoding='utf-8'?>
         </allowed-os-versions>
     </volume-check>
     <choices-outline>
-        <line choice=\"audio.existential.BlackHole$ch\"/>
+        <line choice=\"$bundleID\"/>
     </choices-outline>
-    <choice id=\"audio.existential.BlackHole$ch\" visible='true' title=\"BlackHole $ch\" start_selected='true'>
-        <pkg-ref id=\"audio.existential.BlackHole$ch\"/>
+    <choice id=\"$bundleID\" visible='true' title=\"BlackHole $driver_name\" start_selected='true'>
+        <pkg-ref id=\"$bundleID\"/>
     </choice>
-    <pkg-ref id=\"audio.existential.BlackHole$ch\" version=\"$version\" onConclusion='none'>BlackHole.pkg</pkg-ref>
+    <pkg-ref id=\"$bundleID\" version=\"$version\" onConclusion='none'>BlackHole_$driver_name.pkg</pkg-ref>
 </installer-gui-script>" >> distribution.xml
 
 
-productbuild --sign "Q5C99V536K" --distribution distribution.xml --resources . --package-path BlackHole.pkg BlackHole$ch.$version.pkg
+productbuild --sign "24D2BA9B9CC4F2965E32FFA2AC6DC69A88962358" --distribution distribution.xml --resources . --package-path BlackHole_$driver_name.pkg $output_package_name.pkg
 rm distribution.xml
-rm -f BlackHole.pkg
+rm -f BlackHole_$driver_name.pkg
 
 # Notarize
-xcrun notarytool submit BlackHole$ch.$version.pkg --team-id Q5C99V536K --progress --wait --keychain-profile "Notarize"
+xcrun notarytool submit $output_package_name.pkg --team-id 4M658Z2K2X --progress --wait --keychain-profile "Notarize"  --verbose
 
-xcrun stapler staple BlackHole$ch.$version.pkg
+#xattr -rc $output_package_name.pkg
+
+xcrun stapler staple $output_package_name.pkg
 
 cd ..
 

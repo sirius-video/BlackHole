@@ -22,18 +22,18 @@ PRODUCT_BUNDLE_IDENTIFIER=$bundleID \
 GCC_PREPROCESSOR_DEFINITIONS='$GCC_PREPROCESSOR_DEFINITIONS kDriver_Name=\"'$driver_name'\" kNumber_Of_Channels='$channels' kPlugIn_BundleID=\"'$bundleID'\"'
 
 mkdir Installer/root
-mv build/BlackHole.driver Installer/root/BlackHole.driver
+mv build/BlackHole.driver Installer/root/BlackHole.$driver_name.driver
 rm -r build
 
 # Sign with Developer ID Application
-codesign --force --deep --options runtime --sign 4M658Z2K2X Installer/root/BlackHole.driver
+codesign --force --deep --options runtime --sign 4M658Z2K2X Installer/root/BlackHole.$driver_name.driver
 
 # Create package with pkgbuild
 chmod 755 Installer/Scripts/preinstall
 chmod 755 Installer/Scripts/postinstall
 
 # with Developer ID Installer/Application?
-pkgbuild --sign "4M658Z2K2X" --root Installer/root --scripts Installer/Scripts --install-location /Library/Audio/Plug-Ins/HAL Installer/BlackHole.pkg
+pkgbuild --sign "4M658Z2K2X" --root Installer/root --scripts Installer/Scripts --install-location /Library/Audio/Plug-Ins/HAL Installer/BlackHole.$driver_name.pkg
 rm -r Installer/root
 
 # Create installer with productbuild
@@ -59,13 +59,13 @@ echo "<?xml version=\"1.0\" encoding='utf-8'?>
     <choice id=\"$bundleID\" visible='true' title=\"BlackHole $driver_name\" start_selected='true'>
         <pkg-ref id=\"$bundleID\"/>
     </choice>
-    <pkg-ref id=\"$bundleID\" version=\"$version\" onConclusion='none'>BlackHole.pkg</pkg-ref>
+    <pkg-ref id=\"$bundleID\" version=\"$version\" onConclusion='none'>BlackHole.$driver_name.pkg</pkg-ref>
 </installer-gui-script>" >> distribution.xml
 
 # Developer ID Installer
-productbuild --sign "2DA71F5976D336716B85829AE4F5E53CDE869B2D" --distribution distribution.xml --resources . --package-path BlackHole.pkg $output_package_name.pkg
+productbuild --sign "2DA71F5976D336716B85829AE4F5E53CDE869B2D" --distribution distribution.xml --resources . --package-path BlackHole.$driver_name.pkg $output_package_name.pkg
 rm distribution.xml
-rm -f BlackHole.pkg
+rm -f BlackHole.$driver_name.pkg
 
 # Notarize with Developer ID Installer
 xcrun notarytool submit $output_package_name.pkg --team-id 2DA71F5976D336716B85829AE4F5E53CDE869B2D --progress --wait --keychain-profile "Notarize"  #--verbose

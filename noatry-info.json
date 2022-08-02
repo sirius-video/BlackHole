@@ -1,0 +1,42 @@
+{
+  "logFormatVersion": 1,
+  "jobId": "a42d7dbf-f555-4d50-ad07-31937efdd45d",
+  "status": "Accepted",
+  "statusSummary": "Ready for distribution",
+  "statusCode": 0,
+  "archiveFilename": "SiriusB.pkg",
+  "uploadDate": "2022-07-22T06:22:23.899Z",
+  "sha256": "810afc9c6ebf05bd0374ec4e549acbe11e4d77aea14cf093dcbf10de82f34d20",
+  "ticketContents": [
+    {
+      "path": "SiriusB.pkg",
+      "digestAlgorithm": "SHA-1",
+      "cdhash": "00cdbdbca7e55887ab386302da5cef7e73d0e718"
+    },
+    {
+      "path": "SiriusB.pkg/BlackHole.SiriusB.pkg Contents/Payload/Library/Audio/Plug-Ins/HAL/BlackHole.SiriusB.driver",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "dec491751b47cf007a978d35ee1736b4a0dc7ed4",
+      "arch": "x86_64"
+    },
+    {
+      "path": "SiriusB.pkg/BlackHole.SiriusB.pkg Contents/Payload/Library/Audio/Plug-Ins/HAL/BlackHole.SiriusB.driver",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "0274a2e4aaac1d8dfb950eae530f92cfc6c69ac6",
+      "arch": "arm64"
+    },
+    {
+      "path": "SiriusB.pkg/BlackHole.SiriusB.pkg Contents/Payload/Library/Audio/Plug-Ins/HAL/BlackHole.SiriusB.driver/Contents/MacOS/BlackHole",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "dec491751b47cf007a978d35ee1736b4a0dc7ed4",
+      "arch": "x86_64"
+    },
+    {
+      "path": "SiriusB.pkg/BlackHole.SiriusB.pkg Contents/Payload/Library/Audio/Plug-Ins/HAL/BlackHole.SiriusB.driver/Contents/MacOS/BlackHole",
+      "digestAlgorithm": "SHA-256",
+      "cdhash": "0274a2e4aaac1d8dfb950eae530f92cfc6c69ac6",
+      "arch": "arm64"
+    }
+  ],
+  "issues": null
+}

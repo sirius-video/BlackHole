@@ -141,7 +141,7 @@ struct ObjectInfo {
 #endif
 
 #ifndef kPlugIn_Icon
-#define                             kPlugIn_Icon                        "BlackHole.icns"
+#define                             kPlugIn_Icon                        "sirius.icns"
 #endif
 
 #ifndef kHas_Driver_Name_Format

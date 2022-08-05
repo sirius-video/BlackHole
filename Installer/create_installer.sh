@@ -10,8 +10,10 @@ channels=2
 ch=$channels"ch"
 version=v$(head -n 1 VERSION)
 bundleID="audio.existential.BlackHole."$driver_name
-
+device_name=$driver_name
+device2_name=$driver_name"2"
 output_package_name=$driver_name
+
 
 # Build
 xcodebuild \
@@ -19,7 +21,7 @@ xcodebuild \
 -configuration Release \
 -target BlackHole CONFIGURATION_BUILD_DIR=build \
 PRODUCT_BUNDLE_IDENTIFIER=$bundleID \
-GCC_PREPROCESSOR_DEFINITIONS='$GCC_PREPROCESSOR_DEFINITIONS kDriver_Name=\"'$driver_name'\" kNumber_Of_Channels='$channels' kPlugIn_BundleID=\"'$bundleID'\"'
+GCC_PREPROCESSOR_DEFINITIONS='$GCC_PREPROCESSOR_DEFINITIONS kDriver_Name=\"'$driver_name'\"  kNumber_Of_Channels='$channels' kPlugIn_BundleID=\"'$bundleID'\" kDevice_Name=\"'$device_name'\" kDevice2_Name=\"'$device2_name'\"'
 
 mkdir Installer/root
 mv build/BlackHole.driver Installer/root/BlackHole.$driver_name.driver
@@ -41,7 +43,7 @@ cd Installer
 
 echo "<?xml version=\"1.0\" encoding='utf-8'?>
 <installer-gui-script minSpecVersion='2'>
-    <title>BlackHole: Virtual Audio Driver $ch $version</title>
+    <title>Sirius.video Virtual Audio Driver</title>
     <welcome file='welcome.html'/>
     <license file='../LICENSE'/>
     <conclusion file='conclusion.html'/>

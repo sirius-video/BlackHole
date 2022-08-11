@@ -16,6 +16,7 @@
 		3D8966462849C318002AB3F0 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 03FDCADB233FAE0500101681 /* LICENSE */; };
 		3D8966472849C318002AB3F0 /* BlackHole.icns in Resources */ = {isa = PBXBuildFile; fileRef = 03FDCAD9233F235500101681 /* BlackHole.icns */; };
 		3D8966482849C318002AB3F0 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 039FF2572341B6E800400D7A /* CHANGELOG.md */; };
+		F635794F28A4FA0200E2C7AC /* uninstall.command in Resources */ = {isa = PBXBuildFile; fileRef = F635794E28A4F9F000E2C7AC /* uninstall.command */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		3D89664D2849C318002AB3F0 /* BlackHole.driver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlackHole.driver; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D8966882849D45F002AB3F0 /* postinstall */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = postinstall; sourceTree = "<group>"; };
 		3D8966892849D45F002AB3F0 /* preinstall */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = preinstall; sourceTree = "<group>"; };
+		F635794D28A4F99C00E2C7AC /* sign_uninstaller.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = sign_uninstaller.sh; sourceTree = "<group>"; };
+		F635794E28A4F9F000E2C7AC /* uninstall.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = uninstall.command; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,7 @@
 		2D74779B1578162B00412279 = {
 			isa = PBXGroup;
 			children = (
+				F635794E28A4F9F000E2C7AC /* uninstall.command */,
 				3D083805284A7BB000C69403 /* Installer */,
 				3D89662F2849BF1A002AB3F0 /* VERSION */,
 				2DA8FA1515FEAAB000F04B50 /* README.md */,
@@ -103,6 +107,7 @@
 		3D083805284A7BB000C69403 /* Installer */ = {
 			isa = PBXGroup;
 			children = (
+				F635794D28A4F99C00E2C7AC /* sign_uninstaller.sh */,
 				3D08381B284AA8EE00C69403 /* create_installer.sh */,
 				3D8966872849D45F002AB3F0 /* scripts */,
 				3D083806284A7BB000C69403 /* conclusion.html */,
@@ -183,6 +188,7 @@
 				3D8966472849C318002AB3F0 /* BlackHole.icns in Resources */,
 				3D8966482849C318002AB3F0 /* CHANGELOG.md in Resources */,
 				3D083818284A7F1200C69403 /* VERSION in Resources */,
+				F635794F28A4FA0200E2C7AC /* uninstall.command in Resources */,
 				3D083819284A7F1500C69403 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
